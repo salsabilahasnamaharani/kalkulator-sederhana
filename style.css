@@ -1,0 +1,232 @@
+:root {
+  --bg: #a9c0b0;
+  --card: #e8f8e5;
+  --btn: #fffaf2;
+  --text: #1f2d24;
+  --shadow-light: rgba(255,255,255,0.7);
+  --shadow-dark: rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] {
+  --bg: #0f2e23;
+  --card: #586b64;
+  --btn: #1b4636;
+  --text: #e8f6ef;
+  --shadow-light: rgba(255,255,255,0.05);
+  --shadow-dark: rgba(0,0,0,0.7);
+}
+
+* { 
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: var(--text);
+}
+
+.container {
+  display: flex;
+  gap: 30px;
+  position: relative;
+  align-items: flex-start;
+}
+
+.theme-toggle {
+  position: absolute;
+  left: -60px;
+  top: 10px;
+  border: none;
+  background: var(--card);
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+              -6px -6px 12px var(--shadow-light);
+}
+
+/* CALCULATOR */
+.calculator {
+  background: var(--card);
+  width: 300px;
+  padding: 25px;
+  border-radius: 28px;
+  box-shadow: 14px 14px 25px var(--shadow-dark),
+              -14px -14px 25px var(--shadow-light);
+}
+
+/* DISPLAY */
+.display {
+  min-height: 70px;
+  background: var(--btn);
+  border-radius: 18px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  box-shadow: inset 6px 6px 10px var(--shadow-dark),
+              inset -6px -6px 10px var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* awal: angka 0 di tengah */
+  transition: all 0.2s ease;
+}
+
+.display.active {
+  justify-content: flex-end; /* setelah mengetik/hasil muncul ke atas */
+}
+
+#expressionDisplay {
+  font-size: 28px;
+  color: var(--text);
+  opacity: 0.7;
+  text-align: right;
+  min-height: 22px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+#resultDisplay {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 5px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar track for WebKit */
+#expressionDisplay::-webkit-scrollbar,
+#resultDisplay::-webkit-scrollbar {
+  height: 6px;
+}
+
+#expressionDisplay::-webkit-scrollbar-thumb,
+#resultDisplay::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
+#expressionDisplay::-webkit-scrollbar-track,
+#resultDisplay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* BUTTONS */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.btn {
+  height: 55px;
+  border-radius: 16px;
+  border: none;
+  background: var(--btn);
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text);
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+              -6px -6px 12px var(--shadow-light);
+  transition: all 0.1s ease;
+}
+
+.btn:active {
+  box-shadow: inset 4px 4px 8px var(--shadow-dark),
+              inset -4px -4px 8px var(--shadow-light);
+}
+
+.btn.result {
+  grid-column: span 2;
+  font-weight: bold;
+  background: #5f7f6b;
+  color: white;
+}
+
+/* HISTORY */
+.history {
+  width: 280px;
+  background: rgba(0,0,0,0.08);
+  padding: 20px;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 14px 14px 25px var(--shadow-dark),
+              -14px -14px 25px var(--shadow-light);
+}
+
+.history h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.history-item {
+  background: rgba(255,255,255,0.15);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+}
+
+.history-item:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.history-item .history-exp {
+  cursor: pointer;
+}
+
+.delete {
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: rgb(179, 20, 20);
+}
+
+.clear-history {
+  height: 45px;
+  border: none;
+  border-radius: 14px;
+  background: #5f7f6b;
+  color: white;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 500px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .calculator, .history {
+    width: 90%;
+  }
+
+  .theme-toggle {
+    left: 10px;
+    top: 10px;
+  }
+}
